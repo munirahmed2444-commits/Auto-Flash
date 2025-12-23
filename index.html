@@ -3,272 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AUTO FLASH | ELITE CAR CARE</title>
-    
+    <title>AUTO FLASH | HOME</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    
     <style>
-        :root {
-            --primary-maroon: #800000;
-            --deep-black: #050505;
-            --card-bg: #0f0f0f;
-            --text-gray: #a0a0a0;
-        }
-
-        /* Smooth Scrolling */
-        html {
-            scroll-behavior: smooth;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', sans-serif;
-        }
-
-        body {
-            background-color: var(--deep-black);
-            color: white;
-            overflow-x: hidden;
-        }
-
-        /* 3D Canvas Fixed in Background */
-        #canvas-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            z-index: 1;
-        }
-
-        /* UI Content Layers */
-        .page-wrapper {
-            position: relative;
-            z-index: 10;
-        }
-
-        header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 30px 50px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
-            z-index: 100;
-        }
-
-        .logo-text {
-            font-size: 1.5rem;
-            font-weight: 900;
-            letter-spacing: 4px;
-        }
-
+        :root { --primary-maroon: #800000; --deep-black: #050505; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Arial Black', sans-serif; }
+        body { background: var(--deep-black); color: white; overflow: hidden; }
+        #canvas-container { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; z-index: 1; }
+        header { position: fixed; top: 0; width: 100%; padding: 25px 50px; display: flex; justify-content: space-between; z-index: 100; background: rgba(0,0,0,0.5); backdrop-filter: blur(10px); }
         .logo-text span { color: var(--primary-maroon); }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin-left: 30px;
-            font-size: 0.8rem;
-            letter-spacing: 2px;
-            transition: 0.3s;
-        }
-
+        nav a { color: white; text-decoration: none; margin-left: 30px; font-size: 0.75rem; letter-spacing: 2px; }
         nav a:hover { color: var(--primary-maroon); }
-
-        /* HERO SECTION */
-        .hero-section {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding-left: 10%;
-            pointer-events: none;
-        }
-
-        .hero-section * { pointer-events: auto; }
-
-        h1 {
-            font-size: clamp(3rem, 8vw, 6rem);
-            line-height: 0.9;
-            margin-bottom: 20px;
-            background: linear-gradient(to bottom, #fff, #444);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        /* ABOUT US SECTION */
-        .about-section {
-            min-height: 100vh;
-            background: rgba(5, 5, 5, 0.9); /* Slight overlay over 3D */
-            padding: 100px 10%;
-            display: flex;
-            align-items: center;
-            border-top: 1px solid rgba(128, 0, 0, 0.3);
-        }
-
-        .about-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-            max-width: 1200px;
-        }
-
-        .about-text h2 {
-            font-size: 3rem;
-            color: var(--primary-maroon);
-            margin-bottom: 20px;
-        }
-
-        .about-text p {
-            color: var(--text-gray);
-            font-size: 1.1rem;
-            line-height: 1.8;
-            margin-bottom: 20px;
-            text-transform: none; /* Override hero style */
-            letter-spacing: normal;
-        }
-
-        .feature-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-
-        .feature-item {
-            background: var(--card-bg);
-            padding: 20px;
-            border-left: 3px solid var(--primary-maroon);
-        }
-
-        .feature-item h4 { margin-bottom: 10px; color: white; }
-        .feature-item p { font-size: 0.9rem; margin-bottom: 0; }
-
-        .cta-btn {
-            padding: 15px 40px;
-            background: var(--primary-maroon);
-            color: white;
-            border: none;
-            cursor: pointer;
-            font-weight: bold;
-            letter-spacing: 2px;
-            transition: 0.4s;
-        }
-
+        .hero { position: relative; z-index: 10; height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; pointer-events: none; }
+        h1 { font-size: 6rem; background: linear-gradient(#fff, #666); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .cta-btn { pointer-events: auto; margin-top: 30px; padding: 15px 40px; background: var(--primary-maroon); color: white; border: none; cursor: pointer; font-weight: 900; transition: 0.3s; text-decoration: none; }
         .cta-btn:hover { background: white; color: black; }
-
-        @media (max-width: 768px) {
-            .about-container { grid-template-columns: 1fr; }
-            header { padding: 20px; }
-        }
     </style>
 </head>
 <body>
-
     <div id="canvas-container"></div>
-
-    <div class="page-wrapper">
-        <header>
-            <div class="logo-text">AUTO<span>FLASH</span></div>
-            <nav>
-                <a href="#">SHOP</a>
-                <a href="#about">ABOUT US</a> <a href="#booking">BOOK NOW</a>
-            </nav>
-        </header>
-
-        <section class="hero-section">
-            <p>Pakistan's Best Car Care</p>
-            <h1>EVERY DETAIL<br>COUNTS</h1>
-            <a href="#about" style="text-decoration:none;">
-                <button class="cta-btn">EXPLORE STUDIO</button>
-            </a>
-        </section>
-
-        <section id="about" class="about-section">
-            <div class="about-container">
-                <div class="about-text">
-                    <h2>Premium Protection.</h2>
-                    <p>Auto Flash is a one-stop solution for the car enthusiast community of Multan and South Punjab. We deliver long-term solutions for people who want only the very best for their car.</p>
-                    <p>We perform Serious Car Care, meaning top-of-the-line products and uncompromised high-quality services. From ceramic coatings to paint protection films, we ensure every detail is perfected.</p>
-                </div>
-                
-                <div class="feature-grid">
-                    <div class="feature-item">
-                        <h4>9H Ceramic</h4>
-                        <p>International standard coating for ultimate shine and scratch resistance.</p>
-                    </div>
-                    <div class="feature-item">
-                        <h4>PPF Coating</h4>
-                        <p>Self-healing paint protection film to keep your car showroom-fresh.</p>
-                    </div>
-                    <div class="feature-item">
-                        <h4>Pro Detailing</h4>
-                        <p>Deep interior and exterior restoration using premium tools.</p>
-                    </div>
-                    <div class="feature-item">
-                        <h4>Foam Wash</h4>
-                        <p>Professional touchless washing systems for daily care.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+    <header>
+        <div class="logo-text">AUTO<span>FLASH</span></div>
+        <nav>
+            <a href="index.html">HOME</a>
+            <a href="services.html">VIEW SERVICES</a>
+            <a href="booking.html">BOOKING</a>
+        </nav>
+    </header>
+    <div class="hero">
+        <p style="letter-spacing: 10px; color: var(--primary-maroon);">PREMIUM DETAILING</p>
+        <h1>AUTO FLASH</h1>
+        <a href="services.html" class="cta-btn">EXPLORE SERVICES</a>
     </div>
 
     <script>
-        /* --- 3D ENGINE --- */
-        let scene, camera, renderer, particleSystem;
-        let mouseX = 0, mouseY = 0;
-
+        let scene, camera, renderer, particles, mainCore;
         function init() {
             scene = new THREE.Scene();
-            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
             camera.position.z = 5;
-
             renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
             renderer.setSize(window.innerWidth, window.innerHeight);
             document.getElementById('canvas-container').appendChild(renderer.domElement);
+            
+            const coreGeom = new THREE.IcosahedronGeometry(2, 1);
+            const coreMat = new THREE.MeshBasicMaterial({ color: 0x800000, wireframe: true, transparent: true, opacity: 0.5 });
+            mainCore = new THREE.Mesh(coreGeom, coreMat);
+            scene.add(mainCore);
 
-            const geometry = new THREE.BufferGeometry();
+            const partGeom = new THREE.BufferGeometry();
             const vertices = [];
-            for (let i = 0; i < 15000; i++) {
-                const x = THREE.MathUtils.randFloatSpread(15);
-                const y = THREE.MathUtils.randFloatSpread(15);
-                const z = THREE.MathUtils.randFloatSpread(15);
-                vertices.push(x, y, z);
-            }
-            geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
-
-            const material = new THREE.PointsMaterial({
-                color: 0x800000,
-                size: 0.02,
-                transparent: true,
-                opacity: 0.7,
-                blending: THREE.AdditiveBlending
-            });
-
-            particleSystem = new THREE.Points(geometry, material);
-            scene.add(particleSystem);
+            for(let i=0; i<5000; i++) vertices.push(THREE.MathUtils.randFloatSpread(15), THREE.MathUtils.randFloatSpread(15), THREE.MathUtils.randFloatSpread(15));
+            partGeom.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+            particles = new THREE.Points(partGeom, new THREE.PointsMaterial({color: 0x800000, size: 0.02}));
+            scene.add(particles);
 
             window.addEventListener('mousemove', (e) => {
-                mouseX = (e.clientX - window.innerWidth / 2) * 0.0003;
-                mouseY = (e.clientY - window.innerHeight / 2) * 0.0003;
+                mainCore.rotation.y = (e.clientX - window.innerWidth/2) * 0.001;
+                mainCore.rotation.x = (e.clientY - window.innerHeight/2) * 0.001;
             });
-
             animate();
         }
-
-        function animate() {
-            requestAnimationFrame(animate);
-            particleSystem.rotation.y += 0.001;
-            particleSystem.rotation.x += (mouseY - particleSystem.rotation.x) * 0.05;
-            particleSystem.rotation.y += (mouseX - particleSystem.rotation.y) * 0.05;
-            renderer.render(scene, camera);
-        }
-
+        function animate() { requestAnimationFrame(animate); mainCore.rotation.y += 0.005; renderer.render(scene, camera); }
         init();
     </script>
 </body>
